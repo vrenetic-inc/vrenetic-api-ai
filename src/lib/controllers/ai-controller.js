@@ -9,6 +9,7 @@ const { ok } = commons.core.responses
 
 const asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
 const nnShowCommand = 'python3 /Users/kris/Projects/vrenetic-ai-cli/vrenetic-ai/src/vrenetic/ai.py nn-show --nn-print-all'
+const nnRunCommand = 'python3 /Users/kris/Projects/vrenetic-ai-cli/vrenetic-ai/src/vrenetic/ai.py nn-run'
 
 router.get("/", function process(req, res, next) {
   asyncExecutor(nnShowCommand).then(data => {
@@ -34,12 +35,16 @@ router.get("/:id", function process(req, res, next) {
   })
 })
 
-router.post("/", function process(req, res, next) {
-  console.log(req);
-  res.send(ok(res, {
-    "well": "ok"
-  }))
-  next()
+router.post("/:id", function process(req, res, next) {
+  asyncExecutor(nnRunCommand + ' ' + req.params.id + ' data').then(data => {
+    ok(res, { 
+      "output": data[0].replace(/(\r\n|\n|\r)/gm, "")
+    })
+    next()
+  }).catch(err => {
+    console.log('cmd err', err)
+    next()
+  })
 })
 
 module.exports = router
