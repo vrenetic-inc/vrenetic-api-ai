@@ -7,7 +7,6 @@ const apiPrefixes = {
 }
 
 const apiResources = {
-  Statuses: "/statuses",
   AINN: "/ai/nn/",
 }
 
