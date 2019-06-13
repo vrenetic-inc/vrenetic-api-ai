@@ -2,8 +2,8 @@ const express = require("express")
 const router = express.Router()
 
 const { apiResources } = require("../constants/constants")
-const statusesCtrl = require("./statuses-controller")
+const aiController = require("./ai-controller")
 
-router.use(apiResources.Statuses, statusesCtrl)
+router.use(apiResources.AINN, aiController)
 
 module.exports = router
