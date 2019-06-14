@@ -26,7 +26,7 @@ router.get("/", function process(req, res, next) {
 router.get("/:id", function process(req, res, next) {
   asyncExecutor(nnShowCommand + ' --nn-id ' + req.params.id).then(data => {
     ok(res, { 
-      "output": data
+      "output": data[0].replace(/(\r\n|\n|\r)/gm, "")
     })
     next()
   }).catch(err => {
