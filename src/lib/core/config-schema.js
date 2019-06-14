@@ -22,7 +22,7 @@ const schema = {
   vreneticAICli: {
     doc: "VRenetic AI Cli tools",
     format: "String",
-    default: null,
+    default: "vrenetic-ai",
     env: "VRENETIC_AI_CLI_BINARY",
   }
 }
