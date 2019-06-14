@@ -31,3 +31,12 @@ Runs neural network by `id` with provided `DTOs` as `JSON` in body.
 Runs `vrenetic-ai nn-run [ID] [BODY-DATA]`
 
 Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
+
+TODO
+----
+* Error handling
+* Config file extension with cli params
+* Data batch support for `nn-run`
+* Workflows support based on [CLI TODO](https://github.com/vrenetic-inc/vrenetic-ai-cli#todo)
+* Docker support
+* CI/CD support
