@@ -38,6 +38,7 @@ class Application {
     const config = this.config
     const loggerSession = createNamespace("loggerGlobalContext")
     const jwtPublicKey = config.get("jwtPublicKey")
+    const vreneticAICli = config.get("vreneticAICli")
     const appPort = config.get("servicePort")
     try {
       const app = express()

@@ -18,6 +18,12 @@ const schema = {
     format: "String",
     default: null,
     env: "JWT_VERIFICATION_KEY",
+  },
+  vreneticAICli: {
+    doc: "VRenetic AI Cli tools",
+    format: "String",
+    default: null,
+    env: "VRENETIC_AI_CLI_BINARY",
   }
 }
 

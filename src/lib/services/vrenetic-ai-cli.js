@@ -1,31 +1,27 @@
-var Promise = require("bluebird")
 var cmd = require('node-cmd')
-
-const asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
-
-// This should go to configuration file
-const nnBinary = 'python3 /Users/kris/Projects/vrenetic-ai-cli/vrenetic-ai/src/vrenetic/ai.py'
-
-// Interface for https://github.com/vrenetic-inc/vrenetic-ai-cli
-const nnShowCommand = [nnBinary, 'nn-show', '--nn-print-all'].join(' ')
-const nnRunCommand = [nnBinary, 'nn-run'].join(' ')
+var Promise = require("bluebird")
+const config = require("../../lib/config")
 
 class VReneticAICli {
 
-  constructor() {
+  constructor(nnBinary) {
+    this.nnBinary = nnBinary
+    this.nnRunCommand = [this.nnBinary, 'nn-run'].join(' ')
+    this.nnShowCommand = [this.nnBinary, 'nn-show', '--nn-print-all'].join(' ')
+    this.asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
   }
 
   NNShowAll() {
-    return asyncExecutor(nnShowCommand)
+    return this.asyncExecutor(this.nnShowCommand)
   }
 
   NNShowById(id) {
-    return asyncExecutor([nnShowCommand, '--nn-id', id].join(' '))
+    return this.asyncExecutor([this.nnShowCommand, '--nn-id', id].join(' '))
   }
 
   NNRun(id, data) {
-    return asyncExecutor([nnRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+    return this.asyncExecutor([this.nnRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
   }
 }
 
-module.exports = new VReneticAICli()
+module.exports = new VReneticAICli(config.get('vreneticAICli'))
