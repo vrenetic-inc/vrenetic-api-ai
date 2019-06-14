@@ -37,10 +37,33 @@ Configuration
 
 See [schema](https://github.com/vrenetic-inc/vrenetic-api-ai/blob/master/src/lib/core/config-schema.js) for more details
 
+Develop
+-------
+
+#### Dependencies
+
+```bash
+cd src/
+npm install
+```
+
+```bash
+cd ~/Projects
+git clone https://github.com/vrenetic-inc/vrenetic-ai-cli.git
+```
+
+#### Run
+
+```bash
+export VRENETIC_AI_CLI_BINARY="python3 ~/Projects/vrenetic-ai-cli/src/vrenetic/ai.py"
+export JWT_VERIFICATION_KEY=xx
+export NODE_ENV=test
+node src/server.js
+```
+
 TODO
 ----
 * Error handling
-* Config file extension with cli params
 * Data batch support for `nn-run`
 * Workflows support based on [CLI TODO](https://github.com/vrenetic-inc/vrenetic-ai-cli#todo)
 * Docker support
