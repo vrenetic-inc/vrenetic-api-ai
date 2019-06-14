@@ -32,6 +32,11 @@ Runs `vrenetic-ai nn-run [ID] [BODY-DATA]`
 
 Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
 
+Configuration
+-------------
+
+See [schema](https://github.com/vrenetic-inc/vrenetic-api-ai/blob/master/src/lib/core/config-schema.js) for more details
+
 TODO
 ----
 * Error handling
