@@ -34,6 +34,12 @@ Runs `vrenetic-ai ann-run [ID] [BODY-DATA]`
 
 Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
 
+#### `POST /v1/ai/ann/:id/batch`
+
+Runs neural network by `id` for batch of input data as `["DTOS-DATA", "DTOS-DATA", "DTOS-DATA", ...]`
+
+Runs `vrenetic-ai ann-run [ID] [DTOS-DATA]` in the loop.
+
 ### Workflow
 
 #### `GET /v1/ai/workflow`

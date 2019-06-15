@@ -25,6 +25,15 @@ class VReneticAICli {
     return this.asyncExecutor([this.annRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
   }
 
+  ANNRunBatch(id, data) {
+    var results = []
+    for(var n = 0; n < data.length; n++) {
+      var output = this.asyncExecutor([this.annRunCommand, id, `'${JSON.stringify(data[n])}'`].join(' '))
+      results.push(output)
+    }
+    return Promise.all(results);
+  }
+
   WorkflowShow() {
     return this.asyncExecutor(this.workflowShowCommand)
   }
