@@ -91,22 +91,18 @@ $ curl -XGET http://localhost:8110/health/status --silent
 ```
 
 ```bash
-$ curl -XGET http://localhost:8110/v1/ai/ann/5b21f94435a6a400013c6eca  --silent
-{
-    "output": "Output based on https://github.com/vrenetic-inc/vrenetic-ai-cli#ai-manifest"
-}
+$ curl -XGET http://localhost:8110/v1/ai/ann/5b21f94435a6a400013c6eca --silent
+"JSON Output based on https://github.com/vrenetic-inc/vrenetic-ai-cli#ai-manifest"
 ```
 
 ```bash
 $ curl -XPOST -H "Content-type: application/json" -d "[{},{},{},{}]" http://localhost:8110/v1/ai/workflow/604f08de5b2ad818ce686365011c4aa7/batch
-{
-    "output": [
-        { "relevancy-index": 0 },
-        { "relevancy-index": 0 },
-        { "relevancy-index": 0 },
-        { "relevancy-index": 0 }
-    ]
-}
+[
+    { "relevancy-index": 0 },
+    { "relevancy-index": 0 },
+    { "relevancy-index": 0 },
+    { "relevancy-index": 0 }
+]
 ```
 
 Configuration

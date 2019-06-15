@@ -6,9 +6,8 @@ const { ok, badRequest } = commons.core.responses
 
 router.get("/", function process(req, res, next) {
   vreneticAICli.ANNShowAll().then(data => {
-    ok(res, { 
-      "output": JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
-    })
+    response = JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
+    ok(res, response)
     next()
   }).catch(err => {
     console.log('cmd err', err)
@@ -18,9 +17,8 @@ router.get("/", function process(req, res, next) {
 
 router.get("/:id", function process(req, res, next) {
   vreneticAICli.ANNShowById(req.params.id).then(data => {
-    ok(res, { 
-      "output": JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
-    })
+    response = JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
+    ok(res, response)
     next()
   }).catch(err => {
     console.log('cmd err', err)
@@ -30,9 +28,8 @@ router.get("/:id", function process(req, res, next) {
 
 router.post("/:id", function process(req, res, next) {
   vreneticAICli.ANNRun(req.params.id, req.body).then(data => {
-    ok(res, { 
-      "output": JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
-    })
+    response = JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
+    ok(res, response)
     next()
   }).catch(err => {
     console.log('cmd err', err)
@@ -50,9 +47,7 @@ router.post("/:id/batch", function process(req, res, next) {
     for(var n = 0; n < data.length; n++) {
       results.push(JSON.parse(data[n][0].replace(/(\r\n|\n|\r)/gm, "")))
     }
-    ok(res, {
-      "output": results
-    })
+    ok(res, results)
     next()
   }).catch(err => {
     console.log('cmd err', err)
