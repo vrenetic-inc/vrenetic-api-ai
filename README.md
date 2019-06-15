@@ -50,17 +50,23 @@ Runs `vrenetic-ai workflow-show --print-json`
 
 #### `GET /v1/ai/workflow/:id`
 
-List workflows detials by `id`.
+List workflow detials by `id`.
 
 Runs `vrenetic-ai workflow-show --ann-id [ID] --print-json`
 
 #### `POST /v1/ai/workflow/:id`
 
-Runs workflows by `id` with provided `DTOs` as `JSON` in body.
+Runs workflow by `id` with provided `DTOs` as `JSON` in body.
 
 Runs `vrenetic-ai workflow-run [ID] [BODY-DATA]`
 
 Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
+
+#### `POST /v1/ai/workflow/:id/batch`
+
+Runs workflow by `id` for batch of input data as `["DTOS-DATA", "DTOS-DATA", "DTOS-DATA", ...]`
+
+Runs `vrenetic-ai workflow-run [ID] [DTOS-DATA]` in the loop.
 
 ### Health
 
@@ -72,7 +78,7 @@ Usage
 -----
 
 ```bash
-$ curl http://localhost:8110/health/status
+$ curl -XGET http://localhost:8110/health/status --silent
 {
     "system": "ok",
     "providers": {
@@ -85,9 +91,21 @@ $ curl http://localhost:8110/health/status
 ```
 
 ```bash
-$ curl http://localhost:8110/v1/ai/ann/5b21f94435a6a400013c6eca
+$ curl -XGET http://localhost:8110/v1/ai/ann/5b21f94435a6a400013c6eca  --silent
 {
     "output": "Output based on https://github.com/vrenetic-inc/vrenetic-ai-cli#ai-manifest"
+}
+```
+
+```bash
+$ curl -XPOST -H "Content-type: application/json" -d "[{},{},{},{}]" http://localhost:8110/v1/ai/workflow/604f08de5b2ad818ce686365011c4aa7/batch
+{
+    "output": [
+        { "relevancy-index": 0 },
+        { "relevancy-index": 0 },
+        { "relevancy-index": 0 },
+        { "relevancy-index": 0 }
+    ]
 }
 ```
 
@@ -123,7 +141,6 @@ node src/server.js
 TODO
 ----
 * Error handling
-* Data batch support for `ann-run` and `workflow-run`
 * Docker support
 * CI/CD support
 * Intorduce RabbitMQ support

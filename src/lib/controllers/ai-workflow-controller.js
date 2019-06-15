@@ -41,4 +41,24 @@ router.post("/:id", function process(req, res, next) {
   })
 })
 
+router.post("/:id/batch", function process(req, res, next) {
+  if(req.body.length < 1) {
+    badRequest(res)
+    return next()
+  }
+  vreneticAICli.WorkflowRunBatch(req.params.id, req.body).then(data => {
+    results = []
+    for(var n = 0; n < data.length; n++) {
+      results.push(JSON.parse(data[n][0].replace(/(\r\n|\n|\r)/gm, "")))
+    }
+    ok(res, {
+      "output": results
+    })
+    next()
+  }).catch(err => {
+    console.log('cmd err', err)
+    next()
+  })
+})
+
 module.exports = router

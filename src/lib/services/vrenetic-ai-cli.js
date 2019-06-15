@@ -42,8 +42,17 @@ class VReneticAICli {
     return this.asyncExecutor([this.workflowShowCommand, '--workflow-id', id].join(' '))
   }
 
-  WorkflowRun() {
+  WorkflowRun(id, data) {
     return this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+  }
+
+  WorkflowRunBatch(id, data) {
+    var results = []
+    for(var n = 0; n < data.length; n++) {
+      var output = this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+      results.push(output)
+    }
+    return Promise.all(results);
   }
 
   ANNStatus() {
