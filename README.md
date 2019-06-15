@@ -7,30 +7,56 @@ Provider
 --------
 
 #### VRenetic AI CLI tools
-[CLI](https://github.com/vrenetic-inc/vrenetic-ai-cli) with support for `nn-run` and `nn-show`
+[CLI](https://github.com/vrenetic-inc/vrenetic-ai-cli) with support for `ann-run`, `ann-show`, `workflow-run` and `workflow-show`
 
 Endpoints
 ---------
 
-#### `GET /v1/ai/nn`
+### ANN
+
+#### `GET /v1/ai/ann`
 
 List all available neural networks. 
 
-Runs `vrenetic-ai nn-show --nn-print-all`
+Runs `vrenetic-ai ann-show --print-json`
 
-#### `GET /v1/ai/nn/:id`
+#### `GET /v1/ai/ann/:id`
 
 List neural network detials by `id`.
 
-Runs `vrenetic-ai nn-show --nn-id [ID] --nn-print-all`
+Runs `vrenetic-ai ann-show --ann-id [ID] --print-json`
 
-#### `POST /v1/ai/nn/:id`
+#### `POST /v1/ai/ann/:id`
 
 Runs neural network by `id` with provided `DTOs` as `JSON` in body.
 
-Runs `vrenetic-ai nn-run [ID] [BODY-DATA]`
+Runs `vrenetic-ai ann-run [ID] [BODY-DATA]`
 
 Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
+
+### Workflow
+
+#### `GET /v1/ai/workflow`
+
+List all available workflows. 
+
+Runs `vrenetic-ai workflow-show --print-json`
+
+#### `GET /v1/ai/workflow/:id`
+
+List workflows detials by `id`.
+
+Runs `vrenetic-ai workflow-show --ann-id [ID] --print-json`
+
+#### `POST /v1/ai/workflow/:id`
+
+Runs workflows by `id` with provided `DTOs` as `JSON` in body.
+
+Runs `vrenetic-ai workflow-run [ID] [BODY-DATA]`
+
+Body data structure [example](https://github.com/vrenetic-inc/vrenetic-ai-cli#examples) and [contract](https://github.com/vrenetic-inc/vrenetic-ai-cli#contract) definition
+
+### Health
 
 #### `GET /health/status`
 
@@ -53,7 +79,7 @@ $ curl http://localhost:8110/health/status
 ```
 
 ```bash
-$ curl http://localhost:8110/v1/ai/nn/5b21f94435a6a400013c6eca
+$ curl http://localhost:8110/v1/ai/ann/5b21f94435a6a400013c6eca
 {
     "output": "Output based on https://github.com/vrenetic-inc/vrenetic-ai-cli#ai-manifest"
 }
@@ -91,8 +117,7 @@ node src/server.js
 TODO
 ----
 * Error handling
-* Data batch support for `nn-run`
-* Workflows support based on [CLI TODO](https://github.com/vrenetic-inc/vrenetic-ai-cli#todo)
+* Data batch support for `ann-run` and `workflow-run`
 * Docker support
 * CI/CD support
 * Intorduce RabbitMQ support

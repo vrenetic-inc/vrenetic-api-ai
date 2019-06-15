@@ -4,27 +4,41 @@ const config = require("../../lib/config")
 
 class VReneticAICli {
 
-  constructor(nnBinary) {
-    this.nnBinary = nnBinary
-    this.nnRunCommand = [this.nnBinary, 'nn-run'].join(' ')
-    this.nnShowCommand = [this.nnBinary, 'nn-show', '--nn-print-all'].join(' ')
+  constructor(binary) {
+    this.binary = binary
+    this.annRunCommand = [this.binary, 'ann-run'].join(' ')
+    this.annShowCommand = [this.binary, 'ann-show', '--print-json'].join(' ')
+    this.workflowRunCommand = [this.binary, 'workflow-run'].join(' ')
+    this.workflowShowCommand = [this.binary, 'workflow-show', '--print-json'].join(' ')
     this.asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
   }
 
-  NNShowAll() {
-    return this.asyncExecutor(this.nnShowCommand)
+  ANNShowAll() {
+    return this.asyncExecutor(this.annShowCommand)
   }
 
-  NNShowById(id) {
-    return this.asyncExecutor([this.nnShowCommand, '--nn-id', id].join(' '))
+  ANNShowById(id) {
+    return this.asyncExecutor([this.annShowCommand, '--ann-id', id].join(' '))
   }
 
-  NNRun(id, data) {
-    return this.asyncExecutor([this.nnRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+  ANNRun(id, data) {
+    return this.asyncExecutor([this.annRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
   }
 
-  NNStatus() {
-    return this.asyncExecutor([this.nnBinary, '--version'].join(' '))
+  WorkflowShow() {
+    return this.asyncExecutor(this.workflowShowCommand)
+  }
+
+  WorkflowShowById(id) {
+    return this.asyncExecutor([this.workflowShowCommand, '--workflow-id', id].join(' '))
+  }
+
+  WorkflowRun() {
+    return this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+  }
+
+  ANNStatus() {
+    return this.asyncExecutor([this.binary, '--version'].join(' '))
   }
 }
 

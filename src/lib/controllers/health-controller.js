@@ -10,13 +10,13 @@ router.get("/", function process(req, res, next) {
 })
 
 router.get("/status", function process(req, res, next) {
-  vreneticAICli.NNStatus().then(data => {
+  vreneticAICli.ANNStatus().then(data => {
     ok(res, {
       "system": "ok",
       "providers": {
         "vrenetic-ai-cli": {
           "version": data[0].replace(/(\r\n|\n|\r)/gm, "").split(' ')[1],
-          "binary": vreneticAICli.nnBinary
+          "binary": vreneticAICli.binary
         }
       }
     })

@@ -4,7 +4,8 @@ const apiPrefixes = {
 }
 
 const apiResources = {
-  AINN: "/ai/nn/",
+  AINN: "/ai/ann/",
+  AIW: "/ai/workflow/"
 }
 
 module.exports = {
