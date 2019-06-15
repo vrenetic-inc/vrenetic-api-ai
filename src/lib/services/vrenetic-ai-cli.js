@@ -22,6 +22,10 @@ class VReneticAICli {
   NNRun(id, data) {
     return this.asyncExecutor([this.nnRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
   }
+
+  NNStatus() {
+    return this.asyncExecutor([this.nnBinary, '--version'].join(' '))
+  }
 }
 
 module.exports = new VReneticAICli(config.get('vreneticAICli'))
