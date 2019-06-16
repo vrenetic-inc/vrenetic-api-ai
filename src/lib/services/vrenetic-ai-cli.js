@@ -49,7 +49,7 @@ class VReneticAICli {
   WorkflowRunBatch(id, data) {
     var results = []
     for(var n = 0; n < data.length; n++) {
-      var output = this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data)}'`].join(' '))
+      var output = this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data[n])}'`].join(' '))
       results.push(output)
     }
     return Promise.all(results);
