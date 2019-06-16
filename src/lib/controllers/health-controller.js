@@ -10,7 +10,7 @@ router.get("/", function process(req, res, next) {
 })
 
 router.get("/status", function process(req, res, next) {
-  vreneticAICli.ANNStatus().then(data => {
+  vreneticAICli.Version().then(data => {
     ok(res, {
       "system": "ok",
       "providers": {

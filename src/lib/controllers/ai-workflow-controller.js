@@ -27,7 +27,7 @@ router.get("/:id", function process(req, res, next) {
 })
 
 router.post("/:id", function process(req, res, next) {
-  vreneticAICli.workflowRunCommand(req.params.id, req.body).then(data => {
+  vreneticAICli.WorkflowRun(req.params.id, req.body).then(data => {
     response = JSON.parse(data[0].replace(/(\r\n|\n|\r)/gm, ""))
     ok(res, response)
     next()

@@ -55,7 +55,7 @@ class VReneticAICli {
     return Promise.all(results);
   }
 
-  ANNStatus() {
+  Version() {
     return this.asyncExecutor([this.binary, '--version'].join(' '))
   }
 }
