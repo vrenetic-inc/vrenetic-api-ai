@@ -1,7 +1,9 @@
 vrenetic-api-ai
 ===============
 
-REST API for VRenetic Artificial Intelligence Services
+REST API for VRenetic Artificial Intelligence Services.
+
+See [TODO](https://github.com/vrenetic-inc/vrenetic-api-ai#todo) section
 
 Provider
 --------
@@ -136,7 +138,18 @@ node src/server.js
 
 TODO
 ----
+
+#### PoC
 * Error handling
 * Docker support
 * CI/CD support
-* Intorduce RabbitMQ support
+
+#### MVP
+* Introduce RabbitMQ support
+* Add persistence layer - MongoDB or Neo4j
+
+#### Beta
+* Add Application and User entity support for storing personalised data
+* Add support for storing datsets based on VRenetic AI Cli DTOs contract
+* Add support for storing personalised ANNs
+* Add semi-supervised mode based on VRenetic AI Cli
