@@ -8,10 +8,11 @@ WORKDIR /usr/src/vrenetic-ai-api
 
 COPY . /usr/src/vrenetic-ai-api/
 
-ENV NODE_ENV=production
+ENV NODE_ENV=test
 
 RUN cd src && npm install
 
 EXPOSE 8110
+
 CMD node src/server.js
 
