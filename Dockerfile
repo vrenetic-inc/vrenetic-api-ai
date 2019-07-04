@@ -14,4 +14,4 @@ RUN cd src && npm install
 
 EXPOSE 8110
 
-#CMD node src/server.js
+CMD node src/server.js
