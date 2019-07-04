@@ -12,6 +12,6 @@ ENV NODE_ENV=production
 
 RUN cd src && npm install
 
-#EXPOSE 8110
-#CMD node src/server.js
+EXPOSE 8110
+CMD node src/server.js
 
