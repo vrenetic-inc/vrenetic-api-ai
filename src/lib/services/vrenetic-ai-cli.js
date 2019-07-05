@@ -49,7 +49,8 @@ class VReneticAICli {
   WorkflowRunBatch(id, data) {
     var results = []
     for(var n = 0; n < data.length; n++) {
-      var output = this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(data[n])}'`].join(' '))
+      var workflowData = data[n]
+      var output = this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(workflowData)}'`].join(' '))
       results.push(output)
     }
     return Promise.all(results);
@@ -57,6 +58,10 @@ class VReneticAICli {
 
   Version() {
     return this.asyncExecutor([this.binary, '--version'].join(' '))
+  }
+
+  Info() {
+    return this.asyncExecutor([this.binary, 'info'].join(' '))
   }
 }
 

@@ -27,4 +27,17 @@ router.get("/status", function process(req, res, next) {
   })
 })
 
+router.get("/info", function process(req, res, next) {
+  vreneticAICli.Info().then(data => {
+    ok(res, {
+      "system": "ok",
+      "info": data
+    })
+    next()
+  }).catch(err => {
+    console.log('cmd err', err)
+    next()
+  })
+})
+
 module.exports = router
