@@ -1,6 +1,8 @@
 vrenetic-api-ai
 ===============
 
+[![Build Status](https://jenkins-eu.vrenetic.io/buildStatus/icon?job=vrenetic-api-ai%2Fmaster)](https://jenkins-eu.vrenetic.io/job/vrenetic-api-ai/job/master/)
+
 REST API for VRenetic Artificial Intelligence Services.
 
 See [TODO](https://github.com/vrenetic-inc/vrenetic-api-ai#todo) section
