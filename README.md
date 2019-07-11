@@ -143,11 +143,8 @@ TODO
 
 #### PoC
 * Error handling
-* Docker support
-* CI/CD support
 
 #### MVP
-* Introduce RabbitMQ support
 * Add persistence layer - MongoDB or Neo4j
 
 #### Beta
