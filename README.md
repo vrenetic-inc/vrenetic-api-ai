@@ -147,6 +147,7 @@ TODO
 
 #### MVP
 * Add persistence layer - MongoDB or Neo4j
+* Move ann/workflow `targetId` for batch support from `URL` into `DTO`
 
 #### Beta
 * Add Application and User entity support for storing personalised data
