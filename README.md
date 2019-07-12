@@ -143,6 +143,7 @@ TODO
 
 #### PoC
 * Error handling
+* Move ann/workflow `targetId` for batch support from `URL` into `DTO`
 
 #### MVP
 * Add persistence layer - MongoDB or Neo4j
