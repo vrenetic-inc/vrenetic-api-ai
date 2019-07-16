@@ -45,22 +45,26 @@ pipeline {
         agent {
             label 'vrenetic-deployer'
         }
-        withCredentials([file(credentialsId: 'kubectl_config', variable: 'FILE')]) {
-            sh 'mkdir -p ${HOME}/.kube && cp $FILE $HOME/.kube/config'
-        }
-        sh "kubectl config use-context k8s-development.vrenetic.io"
+        steps {
+            withCredentials([file(credentialsId: 'kubectl_config', variable: 'FILE')]) {
+                sh 'mkdir -p ${HOME}/.kube && cp $FILE $HOME/.kube/config'
+            }
+            sh "kubectl config use-context k8s-development.vrenetic.io"
+            }
     }
     stage('deploy to k8s') {
         agent {
             label 'vrenetic-deployer'
         }
-        withCredentials([string(credentialsId: 'vrenetic_helm_repo', variable: 'vreneticHelmRepo')]) {
-            sh "curl ${vreneticHelmRepo}/index.yaml -o /tmp/index.yaml"
-            chart_version = sh (
-                script: "cat /tmp/index.yaml|grep 'name: metrics-${metrics_kind}' -3|grep version |awk '{print \$2}'|sort -V |tail -n1",
-                returnStdout: true
-            ).trim()
-            sh "helm upgrade --install --version=${chart_version} --repo=${vreneticHelmRepo} --wait --timeout=300 --namespace=development vrenetic-ai-service-development vrenetic-ai-service-development"
+        steps {
+            withCredentials([string(credentialsId: 'vrenetic_helm_repo', variable: 'vreneticHelmRepo')]) {
+                sh "curl ${vreneticHelmRepo}/index.yaml -o /tmp/index.yaml"
+                chart_version = sh (
+                    script: "cat /tmp/index.yaml|grep 'name: metrics-${metrics_kind}' -3|grep version |awk '{print \$2}'|sort -V |tail -n1",
+                    returnStdout: true
+                ).trim()
+                sh "helm upgrade --install --version=${chart_version} --repo=${vreneticHelmRepo} --wait --timeout=300 --namespace=development vrenetic-ai-service-development vrenetic-ai-service-development"
+            }
         }
     }
   }
