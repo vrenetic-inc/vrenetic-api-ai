@@ -58,12 +58,14 @@ pipeline {
         }
         steps {
             withCredentials([string(credentialsId: 'vrenetic_helm_repo', variable: 'vreneticHelmRepo')]) {
-                sh "curl ${vreneticHelmRepo}/index.yaml -o /tmp/index.yaml"
-                chart_version = sh (
-                    script: "cat /tmp/index.yaml|grep 'name: metrics-${metrics_kind}' -3|grep version |awk '{print \$2}'|sort -V |tail -n1",
-                    returnStdout: true
-                ).trim()
-                sh "helm upgrade --install --version=${chart_version} --repo=${vreneticHelmRepo} --wait --timeout=300 --namespace=development vrenetic-ai-service-development vrenetic-ai-service-development"
+                script {
+                    sh "curl ${vreneticHelmRepo}/index.yaml -o /tmp/index.yaml"
+                    chart_version = sh (
+                        script: "cat /tmp/index.yaml|grep 'name: metrics-${metrics_kind}' -3|grep version |awk '{print \$2}'|sort -V |tail -n1",
+                        returnStdout: true
+                    ).trim()
+                    sh "helm upgrade --install --version=${chart_version} --repo=${vreneticHelmRepo} --wait --timeout=300 --namespace=development vrenetic-ai-service-development vrenetic-ai-service-development"
+                }
             }
         }
     }
