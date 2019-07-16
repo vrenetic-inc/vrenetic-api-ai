@@ -50,6 +50,7 @@ pipeline {
                 sh 'mkdir -p ${HOME}/.kube && cp $FILE $HOME/.kube/config'
             }
             sh "kubectl config use-context k8s-development.vrenetic.io"
+            sh "helm init --client-only"
             withCredentials([string(credentialsId: 'vrenetic_helm_repo', variable: 'vreneticHelmRepo')]) {
                 script {
                     sh "curl ${vreneticHelmRepo}/index.yaml -o /tmp/index.yaml"
