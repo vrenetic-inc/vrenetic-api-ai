@@ -7,7 +7,7 @@ pipeline {
         registryCredential = 'docker_vrenetic_hub'
         NEXUS_CREDENTIALS = credentials('nexus_credentials')
         NEXUS_AUTH = "${env.NEXUS_CREDENTIALS_USR}:${env.NEXUS_CREDENTIALS_PSW}"
-        cli_version = sh(returnStdout: true, script: """curl -s https://${NEXUS_AUTH}@nexus.core.vrenetic.io/repository/pypi-hosted/simple/vrenetic-ai/ |sed -e 's/<[^>]*>//g' |egrep -o '[0-9].[0-9]+(\\.[0-9]+)'|uniq|sort|head -1""").trim()
+        cli_version = sh(returnStdout: true, script: """curl -s https://${NEXUS_AUTH}@nexus.core.vrenetic.io/repository/pypi-hosted/simple/vrenetic-ai/ |sed -e 's/<[^>]*>//g' |egrep -o '[0-9].[0-9]+(\\.[0-9]+)'|uniq|sort|tail -1""").trim()
     }
     agent { label 'jenkins-java-slave' }
     stages {
