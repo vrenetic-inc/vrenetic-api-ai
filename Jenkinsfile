@@ -7,6 +7,7 @@ pipeline {
         registryCredential = 'docker_vrenetic_hub'
         NEXUS_CREDENTIALS = credentials('nexus_credentials')
         NEXUS_AUTH = "${env.NEXUS_CREDENTIALS_USR}:${env.NEXUS_CREDENTIALS_PSW}"
+        cli_version = sh(returnStdout: true, script: """curl -s https://${NEXUS_AUTH}@nexus.core.vrenetic.io/repository/pypi-hosted/simple/vrenetic-ai/ |sed -e 's/<[^>]*>//g' |egrep -o '[0-9].[0-9]+(\\.[0-9]+)'|uniq|sort|head -1""").trim()
     }
     agent { label 'jenkins-java-slave' }
     stages {
@@ -15,13 +16,6 @@ pipeline {
                 script {
                     def packageJson = readJSON file: "src/package.json"
                     api_version = packageJson.version
-                }
-            }
-        }
-        stage('Set cli version') {
-            steps {
-                script {
-                    def cli_version = sh(returnStdout: true, script: """curl -s https://${NEXUS_AUTH}@nexus.core.vrenetic.io/repository/pypi-hosted/simple/vrenetic-ai/ |sed -e 's/<[^>]*>//g' |egrep -o '[0-9].[0-9]+(\\.[0-9]+)'|uniq|sort|head -1""").trim()
                 }
             }
         }
@@ -57,6 +51,9 @@ pipeline {
         }
         stage('deploy to k8s-sandbox') {
             agent { label 'vrenetic-deployer' }
+            environment {
+                version = "${api_version}+${cli_version}"
+            }
             steps {
                 withCredentials([file(credentialsId: 'kubectl_config', variable: 'FILE')]) {
                     sh 'mkdir -p ${HOME}/.kube && cp $FILE $HOME/.kube/config'
@@ -77,6 +74,9 @@ pipeline {
         }
         stage('deploy to k8s-development') {
             when{ branch 'master' }
+            environment {
+                version = "${api_version}+${cli_version}"
+            }
             agent { label 'vrenetic-deployer' }
             steps {
                 withCredentials([file(credentialsId: 'kubectl_config', variable: 'FILE')]) {
