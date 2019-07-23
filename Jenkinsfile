@@ -22,13 +22,13 @@ pipeline {
         stage('Testing') {
             steps {
                 echo "No tests at the moment!"
-                echo "API version: ${api_version}\nCLI version:${cli_version}"
+                echo "API version: ${api_version}\nCLI version: ${cli_version}"
             }
         }
         stage('Build docker image') {
             when{ branch 'master' }
             environment {
-                version = "${api_version}+${cli_version}"
+                version = "api.${api_version}_cli.${cli_version}"
             }
             steps {
                 echo "Building api docker image ${version}"
@@ -52,7 +52,7 @@ pipeline {
         stage('deploy to k8s-sandbox') {
             agent { label 'vrenetic-deployer' }
             environment {
-                version = "${api_version}+${cli_version}"
+                version = "api.${api_version}_cli.${cli_version}"
             }
             steps {
                 withCredentials([file(credentialsId: 'kubectl_config', variable: 'FILE')]) {
@@ -75,7 +75,7 @@ pipeline {
         stage('deploy to k8s-development') {
             when{ branch 'master' }
             environment {
-                version = "${api_version}+${cli_version}"
+                version = "api.${api_version}_cli.${cli_version}"
             }
             agent { label 'vrenetic-deployer' }
             steps {
