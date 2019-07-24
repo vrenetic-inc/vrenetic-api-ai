@@ -24,6 +24,12 @@ const schema = {
     format: "String",
     default: "vrenetic-ai",
     env: "VRENETIC_AI_CLI_BINARY",
+  },
+  childrenMaxConcurrentInstaces: {
+    doc: "Max number of concurrent instances for sub processes",
+    format: "Number",
+    default: 20,
+    env: "CHILDREN_MAX_CONCURRENT_INSTANCES",
   }
 }
 
