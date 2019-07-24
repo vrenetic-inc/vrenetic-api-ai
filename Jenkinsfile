@@ -67,10 +67,11 @@ pipeline {
                             script: "cat /tmp/index.yaml|grep 'name: vrenetic-ai-service' -3|grep version |awk '{print \$2}'|sort -V |tail -n1",
                             returnStdout: true
                         ).trim()
-                        sh "helm upgrade --install --force --version=${chart_version} --repo=${vreneticHelmRepo} --set=imageVersion=${version} --wait --timeout=300 --namespace=sandbox ai-service-sandbox vrenetic-ai-service"
+                        sh "helm upgrade --install --force --recreate-pods --version=${chart_version} --repo=${vreneticHelmRepo} --set=imageVersion=${version} --wait --timeout=300 --namespace=sandbox ai-service-sandbox vrenetic-ai-service"
                     }
                 }
-            }
+            }cd ..
+
         }
         stage('deploy to k8s-development') {
             when{ branch 'master' }
