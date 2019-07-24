@@ -70,7 +70,7 @@ pipeline {
                         sh "helm upgrade --install --force --recreate-pods --version=${chart_version} --repo=${vreneticHelmRepo} --set=imageVersion=${version} --wait --timeout=300 --namespace=sandbox ai-service-sandbox vrenetic-ai-service"
                     }
                 }
-            }cd ..
+            }
 
         }
         stage('deploy to k8s-development') {
