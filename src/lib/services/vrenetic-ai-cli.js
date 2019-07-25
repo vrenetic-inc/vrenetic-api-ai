@@ -1,6 +1,6 @@
 const {default: PQueue} = require('p-queue');
-var cmd = require('node-cmd')
-var Promise = require("bluebird")
+const cmd = require('node-cmd')
+const Promise = require("bluebird")
 const config = require("../../lib/config")
 
 class VReneticAICli {
@@ -13,7 +13,7 @@ class VReneticAICli {
     this.workflowShowCommand = [this.binary, 'workflow-show', '--print-json'].join(' ')
     this.asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
 
-    var maxParallelJobs = config.get('childrenMaxConcurrentInstaces')
+    let maxParallelJobs = config.get('childrenMaxConcurrentInstaces')
     this.queue = new PQueue({concurrency: maxParallelJobs});
   }
 
@@ -30,9 +30,9 @@ class VReneticAICli {
   }
 
   ANNRunBatch(id, data) {
-    var results = []
-    for(var n = 0; n < data.length; n++) {
-      var output = this.asyncExecutor([this.annRunCommand, id, `'${JSON.stringify(data[n])}'`].join(' '))
+    let results = []
+    for(let n = 0; n < data.length; n++) {
+      let output = this.asyncExecutor([this.annRunCommand, id, `'${JSON.stringify(data[n])}'`].join(' '))
       results.push(output)
     }
     return Promise.all(results);
@@ -51,17 +51,15 @@ class VReneticAICli {
   }
 
   WorkflowRunBatch(id, data) {
-    var results = []
-    for(var n = 0; n < data.length; n++) {
-      var workflowData = data[n]
-
-      var output = this.queue.add(() => {
+    let results = []
+    for(let n = 0; n < data.length; n++) {
+      let workflowData = data[n]
+      let output = this.queue.add(() => {
           return this.asyncExecutor([this.workflowRunCommand, id, `'${JSON.stringify(workflowData)}'`].join(' '))
         }
       )
       results.push(output)
     }
-
     return Promise.all(results);
   }
 
