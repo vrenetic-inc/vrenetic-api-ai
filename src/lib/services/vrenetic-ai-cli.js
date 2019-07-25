@@ -13,7 +13,7 @@ class VReneticAICli {
     this.workflowShowCommand = [this.binary, 'workflow-show', '--print-json'].join(' ')
     this.asyncExecutor = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
 
-    let maxParallelJobs = 2 //config.get('childrenMaxConcurrentInstaces')
+    let maxParallelJobs = config.get('childrenMaxConcurrentInstaces')
     this.queue = new PQueue({concurrency: maxParallelJobs});
   }
 
